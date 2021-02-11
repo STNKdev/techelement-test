@@ -1,0 +1,97 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hide-menu {
+  display: flex;
+  width: 100%;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+.menu, .submenu {
+  list-style: none;
+}
+
+.menu {
+  position: relative;
+  flex: 1;
+}
+
+.menu > li {
+  position: relative;
+}
+
+.menu a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  padding: 5px;
+}
+
+.submenu {
+  position: absolute;
+  display: none;
+  border: 1px solid #333;
+  top: -1px;
+  width: 200px;
+  z-index: 999;
+}
+
+.submenu > li {
+  position: relative;
+}
+
+.submenu a {
+  width: 100%;
+}
+
+li:hover > .submenu {
+  display: inline-block;
+}
+
+.submenu-drop {
+  list-style: none;
+  display: none;
+  position: relative;
+}
+
+li:hover > .submenu-drop {
+  display: block;
+}
+
+.toogle-content {
+  flex: 1;
+}
+
+.content {
+  display: table;
+}
+
+.content > .header {
+  display: table-row;
+}
+
+.content > .item {
+  display: table-row;
+}
+
+.header > span,
+.item > div,
+.item > span {
+  display: table-cell;
+}
+
+
