@@ -68,23 +68,23 @@ const checkBracketPair = (string) => {
 };
 
 
-/*function generateParens(remaining) {
+function generateParens(remaining) {
   const set = [];
   if (remaining === 0) {
     set.push("");
   } else {
     let prev = generateParens(remaining - 1);
-    for (let str in prev) {
+    for (let str of prev) {
       for (let i = 0; i < str.length; i++) {
-        if (str.charAt(i) == '(') {
-          String s = insertInside(str, i);
-          if (!set.contains(s)) {
-            set.add(s);
+        if (str.charAt(i) === '(') {
+          let s = insertInside(str, i);
+          if (!set.includes(s)) {
+            set.push(s);
           }
         }
       }
-      if (!set.contains("()" + str)) {
-        set.add("()" + str);
+      if (!set.includes("()" + str)) {
+        set.push("()" + str);
       }
     }
   }
@@ -95,4 +95,4 @@ function insertInside(str, leftIndex) {
   let left = str.substring(0, leftIndex + 1);
   let right = str.substring(leftIndex + 1, str.length);
   return left + "()" + right;
-}*/
+}
