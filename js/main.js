@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const name = 'Термометр с самым длинным названием которое можно придумать';
 
+  const contentElement = document.querySelector('.content');
+  const hideMenuElement = document.querySelector('.hide-menu');
+  const menu = document.querySelector('.menu');
+
   const imageList = () => {
     let img = [
       './img/term-1.jpg',
@@ -32,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const nextImage = imageList();
-  const contentElement = document.querySelector('.content');
 
   for (let i = 0; i < 8; i++) {
     let itemElement = document.createElement('div');
@@ -49,10 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   });
 
-  const toogleTableView = () => {
+  const toggleTableView = () => {
     contentElement.classList.toggle('table');
   };
 
+  hideMenuElement.addEventListener('mouseover', (event) => {
+    console.log('Мышь!', event.target);
+    if (event.target.classList.contains('toggle-content')) {
+      toggleTableView();
+    } else {
+      menu.classList.remove('hide');
+    }
+  });
 
+  hideMenuElement.addEventListener('mouseout', (event) => {
+    menu.classList.add('hide');
+  });
 
 });
