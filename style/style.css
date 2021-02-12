@@ -16,8 +16,7 @@
 .hide-menu {
   display: flex;
   width: 100%;
-  top: 0;
-  left: 0;
+  margin-bottom: 30px;
 }
 
 .hide {
@@ -127,7 +126,8 @@ li:hover > .submenu-drop {
 }
 
 .content.table > .header > span,
-.content.table > .item > span {
+.content.table > .item > span,
+.content.table > .item > .buy {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
@@ -161,6 +161,10 @@ li:hover > .submenu-drop {
   border: 1px solid #333;
 }
 
+.item-name {
+  color: #7382e8;
+}
+
 .content.table > .item > .item-name {
   max-width: 120px;
 }
@@ -173,6 +177,28 @@ li:hover > .submenu-drop {
 
 .content:not(.table) .item-power,
 .content:not(.table) .item-launch {
+  display: none;
+}
+
+.content:not(.table) .buy {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-price {
+  font-weight: bold;
+}
+
+.btn {
+  color: red;
+  padding: 5px;
+  background-color: #fff;
+  border: 2px solid red;
+}
+
+.content.table .btn {
   display: none;
 }
 
