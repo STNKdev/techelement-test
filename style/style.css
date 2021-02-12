@@ -202,6 +202,10 @@ li:hover > .submenu-drop {
   display: none;
 }
 
+.selected {
+  opacity: 0.6;
+}
+
 @media (max-width: 460px) {
   .content {
     max-width: 250px;

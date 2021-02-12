@@ -58,12 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
     itemElement.id = i + 101 + '';
     itemElement.className = 'item';
     itemElement.innerHTML = templateCard(name, nextImage(), Math.floor(Math.random() * 100000));
+
     itemElement.querySelector('.item-name')
         .addEventListener('click',(event) => {
           event.preventDefault();
           event.target.setAttribute('contenteditable', true);
           event.target.focus();
         });
+
     itemElement.querySelector('.item-name')
         .addEventListener('blur', (event) => {
           event.preventDefault();
@@ -74,8 +76,48 @@ document.addEventListener('DOMContentLoaded', () => {
           };
           post(data);
         });
+
+    itemElement.setAttribute('draggable', 'true');
+
     contentElement.append(itemElement);
   }
+
+  // Start Drag'n'Drop
+
+  contentElement.addEventListener(`dragstart`, (evt) => {
+    evt.target.classList.add(`selected`);
+  });
+
+  contentElement.addEventListener(`dragend`, (evt) => {
+    evt.target.classList.remove(`selected`);
+  });
+
+  contentElement.addEventListener(`dragover`, (evt) => {
+    evt.preventDefault();
+    const activeElement = contentElement.querySelector(`.selected`);
+    const currentElement = evt.target;
+    const isMoveable = activeElement !== currentElement &&
+        currentElement.classList.contains(`item`);
+
+    if (!isMoveable) {
+      return;
+    }
+
+    const nextElement = (currentElement === activeElement.nextElementSibling) ?
+        currentElement.nextElementSibling :
+        currentElement;
+
+    if (
+        nextElement &&
+        activeElement === nextElement.previousElementSibling ||
+        activeElement === nextElement
+    ) {
+      return;
+    }
+
+    contentElement.insertBefore(activeElement, nextElement);
+  });
+  // End Drag'n'Drop
 
   // Lazy Load для картинок
   [].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
