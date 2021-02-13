@@ -15,36 +15,53 @@ const getPairBracket = (pair) => {
     }
   ];
 
-  const getPairIndex = () => Math.round(Math.random() * (pairList.length - 1));
 
-  const list = [];
+  const getPairIndex = () => Math.floor(Math.random() * (pairList.length));
+
+  let listBrackets = [];
   let count = 0;
-  let depth = Math.round(Math.random() * pair);
+  let depth = pair > 1 ? Math.floor(Math.random() * (pair + 1)) : 0;
 
-  if (pair === 0) {
-    return '';
-  } else {
-    addBracket(depth);
+  for (let i = 0; i < pair; i++) {
+    listBrackets.push(pairList[getPairIndex()]);
   }
 
-  const addBracket = (depth) => {
-    let pairIndex = getPairIndex();
-    if (depth === 0 && pair === 1) {
-      list.push(pairList[pairIndex].open);
-      list.push(pairList[pairIndex].close);
-    } else if (depth === 0 && pair > 1) {
+  if (depth === 0) {
+    return listBrackets.map((bracket) => bracket.open + bracket.close).join('');
+  }
 
-    }
+  let stack = [];
+
+  for (let i = 0; i < depth; i++) {
+    stack.push(listBrackets[i].open);
+  }
+  for (let i = depth - 1; i >= 0; i--) {
+    stack.push(listBrackets[i].close);
+  }
+
+  const depthPair = (pair) => {
+    const brackets = (result = '', openBracket = 0, closeBracket = 0) => {
+      if (openBracket + closeBracket === 2 * pair) {
+        return result;
+      }
+      if (openBracket < pair) {
+        return brackets(result += '(', openBracket += 1, closeBracket);
+      }
+
+      if (closeBracket < openBracket) {
+        return brackets(result += ')', openBracket, closeBracket += 1);
+      }
+    };
+    return brackets();
   };
 
-  return list;
 };
+
 
 
 const checkBracketPair = (string) => {
   let stringAsArray = [...string];
   let stackBracket = [];
-  let openBracket = '';
   for (let bracket of stringAsArray) {
     if ('([{'.includes(bracket)) {
       stackBracket.push(bracket);
@@ -52,7 +69,7 @@ const checkBracketPair = (string) => {
       if (stackBracket.length === 0) {
         return false;
       }
-      openBracket = stackBracket.pop();
+      let openBracket = stackBracket.pop();
       if (openBracket === '(' && bracket === ')') {
         console.log('ok', openBracket, bracket);
       } else if (openBracket === '[' && bracket === ']') {
