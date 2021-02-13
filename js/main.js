@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     itemElement.setAttribute('draggable', 'true');
+    itemElement.querySelector('.item-img img').setAttribute('draggable', 'false');
 
     contentElement.append(itemElement);
   }
